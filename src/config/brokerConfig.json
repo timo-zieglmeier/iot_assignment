@@ -1,0 +1,7 @@
+{
+    "broker_host": "localhost",
+    "broker_port": 1883,
+    "config_topic": "distance_sensor/config",
+    "data_topic": "distance_sensor/data",
+    "alert_topic": "alert/data"
+}
