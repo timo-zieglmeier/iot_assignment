@@ -1,19 +1,15 @@
 import paho.mqtt.client as mqtt
 from config.config import Config
-#
 import time
 import threading
 
 class MQTTThread(threading.Thread):
-    def __init__(self):
-        """
-        client = mqtt.Client()
-        client.on_connect = self.on_connect
-        client.on_message = self.on_message
-        config = Config()
-        client.connect(config.broker_host, config.broker_port)
-        """
-        pass
+    def __init__(self, name, out_queue, in_queue):
+        threading.Thread.__init__(self)
+        self.name = name
+        self.out_queue = out_queue
+        self.in_queue = in_queue
+
     def on_connect(client, userdata, flags, rc):
         print("Verbunden mit Result Code "+str(rc))
         client.subscribe("$Sys/#")
@@ -27,7 +23,6 @@ class MQTTThread(threading.Thread):
     config = Config()
     client.on_connect = on_connect
     client.on_message = on_message
-    #client.connect("localhost", 1883)
     client.connect(config.broker_host, config.broker_port)
     #client.subscribe("distance_sensor/config", AlertService.set_alert_threshold)
     
